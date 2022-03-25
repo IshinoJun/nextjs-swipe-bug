@@ -1,10 +1,10 @@
-import type { NextPage } from 'next'
+import type { GetServerSideProps, GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 
-const Home: NextPage = () => {
+const Ssr: NextPage = () => {
   return (
     <div className={styles.container}>
       <Head>
@@ -14,8 +14,8 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <Link href='/ssr'>ssr</Link>
-        <Link href='/ssg'>ssg</Link>
+        SSRだよーーーーーーーーーーーー
+        <Link href='/ssr2'>ssr2</Link>
       </main>
 
       <footer className={styles.footer}>
@@ -34,4 +34,16 @@ const Home: NextPage = () => {
   )
 }
 
-export default Home
+export default Ssr
+
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  await sleepByPromise(1);
+  return {
+    props: { id: 1 },
+  };
+};
+
+function sleepByPromise(sec: number) {
+  return new Promise((resolve) => setTimeout(resolve, sec * 1000));
+}
